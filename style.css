@@ -1,125 +1,244 @@
+body {
+    background-color: #343434;
+}
+
+.noSelect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#viewed-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 .site {
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 1200px;
+    height: 880px;
+    margin: 40px auto 40px auto;
+    background-color: #343434;
 }
 
-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.viewer-area {
+    height: 700px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: relative;
+    background-color: whitesmoke;
+    box-shadow: 6px 6px 4px 1px rgba(0,0,0,0.75);
 }
 
-.title-box {
-  position: relative;
-  border-top: solid black 4px;
+.button {
+    width: 50px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
 }
 
-#hayden {
-  width: 1278px;
+.prev {
+    left: 0;
+}
+
+.next {
+    right: 0;
+}
+
+#left-arrow, #right-arrow {
+    background: url("arrow.svg") no-repeat;
+    background-size: contain;
+    width: 25px;
+    height: 39px;
+}
+
+#right-arrow {
+    transform: rotate(180deg);
+}
+
+#left-arrow:hover {
+    cursor: pointer;
+    background: url("arrow_hover.svg") no-repeat;
+    background-size: contain;
+}
+
+#right-arrow:hover {
+    cursor: pointer;
+    background: url("arrow_hover.svg") no-repeat;
+    background-size: contain;
+}
+
+.viewer-frame {
+    width: 1100px;
+    height: 700px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    left: 50px;
+    background-color: whitesmoke;
+}
+
+.image-info-box {
+    width: 1100px;
+    height: 100px;
+    background-color: black;
+    opacity: 0.8;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: whitesmoke;
+    padding: 20px;
 }
 
 h1 {
-  color: #222;
-  font-family: 'Abril Fatface', cursive;
-  font-size: 70px;
-  font-weight: normal;
-  line-height: 80%;
-  position: absolute;
-  margin: 0;
-  top: 225px;
-  left: 300px;
+    font-weight: normal;
+    margin-top: 0;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.header-text-box {
-  width: 740px;
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight: 300;
-  font-size: 20px;
-  line-height: 26px;
-  margin: 40px;
+p {
+    font-family: 'Open Sans', sans-serif;
 }
 
-.text-box {
-  width: 764px;
-  font-family: 'Josefin Sans', sans-serif;
-  font-weight: 300;
+#close-button {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+    bottom: 100px;
+    right: 75px;
 }
 
-.text-box h2 {
-  font-weight: normal;
-  text-transform: uppercase;
-  font-size: 26px;
-  margin-bottom: 60px;
+#close-button:hover {
+    cursor: pointer;
 }
 
-.text-box h3 {
-  font-weight: 500;
-  font-size: 23px;
-  margin-top: 40px;
-  margin-bottom: 0;
+.thumbnails-area {
+    width: 1200px;
+    height: 170px;
+    margin-top: 10px;
+    position: relative;
 }
 
-.text-box h4 {
-  font-family: 'Merriweather', serif;
-  font-size: 15px;
-  font-weight: normal;
-  margin: 0;
+.thumbnails-button {
+    width: 50px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #343434;
 }
 
-.text-box p {
-  font-size: 16px;
-  margin-top: 25px;
+#thumb-left-arrow, #thumb-right-arrow {
+    background: url("thumb_arrow.svg") no-repeat;
+    background-size: contain;
+    width: 15px;
+    height: 23px;
 }
 
-ul {
-  list-style: none;
+#thumb-right-arrow {
+    transform: rotate(180deg);
 }
 
-.header-text-box ul li:before {
-  content: "▪";
-  font-size: 20px;
+#thumb-left-arrow:hover {
+    cursor: pointer;
+    background: url("thumb_arrow_hover.svg") no-repeat;
+    background-size: contain;
 }
 
-.text-box ul li:before {
-  content: "▪";
-  font-size: 16px;
+#thumb-right-arrow:hover {
+    cursor: pointer;
+    background: url("thumb_arrow_hover.svg") no-repeat;
+    background-size: contain;
 }
 
-li span {
-  position: relative;
-  left: 10px;
+.thumbnails-frame {
+    width: 1100px;
+    position: absolute;
+    left: 50px;
+    padding: 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: space-evenly;
 }
 
-#fucked {
-  left: 16px;
+.thumbnail {
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+    padding: 5px;
+    box-shadow: 3px 3px 4px 1px rgba(0,0,0,0.75);
+    background-color: whitesmoke;
+    position: relative;
 }
 
-blockquote:before {
-  content: '“';
-  font-family: 'Abril Fatface', cursive;
-  font-size: 150px;
-  position: absolute;
-  top: -40px;
-  left: 0;
-  
+.thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-blockquote {
-  position: relative;
-  width: 740px;
-  font-family: 'Abril Fatface', cursive;
-  font-size: 48px;
-  padding: 50px;
-  color: white;
-  background: #494b4d;
-  margin: 30px 0px 30px 0px;
+.thumbnail .tooltiptext {
+    width: 120px;
+    background-color: black;
+    opacity: 0.8;
+    color: whitesmoke;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    bottom: 102%;
+    left: 50%;
+    margin-left: -60px;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity .6s;
 }
 
-.black-bar {
-  width: 800px;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  border: 2px solid black;
+.tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.thumbnail:hover .tooltiptext {
+    opacity: 1;
+}
+
+.selected {
+    top: -10px;
+}
+
+.selected::before {
+    content: "";
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent transparent whitesmoke transparent;
 }
