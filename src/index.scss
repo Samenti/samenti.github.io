@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Karla:wght@700&display=swap');
+
+$body-color: #1C1C1C;
+$app-color: #F5F7FB;
+$button-color: #4D5B9E;
+$heading-color: #293264;
+$selected-color: #D6DBF5;
+$incorrect-color: #F8BCBC;
+$correct-color: #94D7A2;
+$title-size: 46px;
+$subtitle-size: 24px;
+$br-ratio: 0.07;
+
+@mixin flexbox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin button {
+  background-color: $button-color;
+  border: 0;
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: $body-color;
+  font-family: 'Inter', sans-serif;
+  color: $heading-color;
+}
+
+.container {
+  @include flexbox;
+  margin: 50px auto;
+  background-color: $app-color;
+  background-image: url(./images/baby-blob.svg), url(./images/lemony-blob.svg);
+  background-position: -170px 630px, 600px -200px;
+  background-repeat: no-repeat, no-repeat;
+  width: 800px;
+  height: 800px;
+}
+
+.splash {
+  @include flexbox;
+  h1 {
+    margin: 0;
+    font-family: 'Karla', sans-serif;
+    font-size: $title-size;
+    line-height: 120% $title-size;
+  }
+
+  p {
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: $subtitle-size;
+    line-height: 120% $subtitle-size;
+  }
+
+  button {
+    @include button;
+    margin-top: 40px;
+    width: 280px;
+    height: 76px;
+    border-radius: 280px * $br-ratio;
+    font-size: $subtitle-size;
+    line-height: 120% $subtitle-size;
+    color: $app-color;
+  }
+}
