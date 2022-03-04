@@ -72,3 +72,18 @@ body {
     color: $app-color;
   }
 }
+
+.item {
+  width: 500px;
+  h2 {
+    color: green;
+  }
+  .answers {
+    display: flex;
+    justify-content: center;
+
+    .answer {
+      margin: 10px;
+    }
+  }
+}

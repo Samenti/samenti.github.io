@@ -1,30 +1,53 @@
 import React from 'react';
+import Item from './components/Item';
+import {nanoid} from 'nanoid';
 
 export default function App() {
-  const amount = 5;
   const category = 9;
   const difficulty = 'medium';
   const apiUrl = 'https://opentdb.com/api.php?'
   const [started, setStarted] = React.useState(false);
-  const [questions, setQuestions] = React.useState([]);
+  const [questionsData, setQuestionsData] = React.useState([]);
 
-  console.log(questions);
+  console.log(questionsData);
 
   function startQuiz() {
     setStarted(true);
   }
 
-  function getQuestions(num, cat, diff) {
+  function getQuestionsData(cat, diff) {
     fetch(
-      `${apiUrl}amount=${num}&category=${cat}`
+      `${apiUrl}amount=5&category=${cat}`
       + `&difficulty=${diff}&type=multiple`
-    ).then(
-      res => res.json()
-    ).then(
-      data => setQuestions(data)
-    );
+    ).then(res => {
+        if (!res.ok) {
+          throw new Error('Response not OK');
+        }
+        return res.json();
+      }
+    ).then(data => setQuestionsData(data.results)
+    ).catch(error => {
+      console.error('Fetch request error:', error);
+    });
   }
 
+  React.useEffect(() => {
+    if (started) {
+      getQuestionsData(category, difficulty);
+    }
+  }, [started]);
+
+  const itemElems = questionsData.map(questionData => {
+    return (
+      <Item 
+        key={nanoid()}
+        question={questionData.question}
+        correct={questionData.correct_answer}
+        incorrects={questionData.incorrect_answers}
+      />
+    );
+  });
+  
   const splashScreen = (
     <div className="splash">
       <h1>Quizzical</h1>
@@ -33,19 +56,12 @@ export default function App() {
     </div>
   );
 
-  React.useEffect(() => {
-    console.log('effect ran')
-    if (started) {
-      getQuestions(amount, category, difficulty);
-    }
-  }, [started]);
-  
   return (
     <div className="container">
       {
         started 
         ? 
-        <h1>placeholder</h1>
+        itemElems
         : 
         splashScreen
       }
