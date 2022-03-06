@@ -9,6 +9,7 @@ $incorrect-color: #F8BCBC;
 $correct-color: #94D7A2;
 $title-size: 46px;
 $subtitle-size: 24px;
+$option-size: 14px;
 $br-ratio: 0.07;
 
 @mixin flexbox {
@@ -21,6 +22,7 @@ $br-ratio: 0.07;
 @mixin button {
   background-color: $button-color;
   border: 0;
+  color: $app-color;
   cursor: pointer;
 }
 
@@ -35,14 +37,18 @@ body {
 }
 
 .container {
-  @include flexbox;
   margin: 50px auto;
   background-color: $app-color;
   background-image: url(./images/baby-blob.svg), url(./images/lemony-blob.svg);
-  background-position: -170px 630px, 600px -200px;
+  background-position: -300px 700px, 600px -200px;
   background-repeat: no-repeat, no-repeat;
   width: 800px;
-  height: 800px;
+  min-height: 800px;
+}
+
+.splash-container {
+  @include flexbox;
+  background-position: -170px 630px, 600px -200px;
 }
 
 .splash {
@@ -69,21 +75,70 @@ body {
     border-radius: 280px * $br-ratio;
     font-size: $subtitle-size;
     line-height: 120% $subtitle-size;
-    color: $app-color;
+  }
+}
+
+.quiz-container {
+  display: flex;
+  flex-direction: column;
+  padding: 60px 100px;
+
+  hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid $selected-color;
+  }
+
+  button {
+    @include button;
+    margin-top: 10px;
+    width: 180px;
+    height: 50px;
+    border-radius: 180px * $br-ratio;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: $option-size;
+    line-height: 120% $option-size;
+    align-self: center;
   }
 }
 
 .item {
-  width: 500px;
   h2 {
-    color: green;
+    margin: 0;
+    font-family: 'Karla', sans-serif;
+    font-size: $subtitle-size;
+    line-height: 120% $subtitle-size;
   }
+
   .answers {
+    margin-top: 18px;
     display: flex;
-    justify-content: center;
+    gap: 18px;
 
     .answer {
-      margin: 10px;
+      border: 1px solid $button-color;
+      border-radius: 12px;
+      padding: 5px 8px;
+      font-weight: 500;
+      font-size: $option-size;
+      line-height: 120% $option-size;
+      cursor: default;
+    }
+
+    .selected {
+      border: 1px solid $selected-color;
+      background-color: $selected-color;
     }
   }
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
 }

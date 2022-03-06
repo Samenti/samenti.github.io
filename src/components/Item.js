@@ -36,12 +36,12 @@ export default function Item(props) {
     const shuffledAnswers = shuffle(answers);
     const answerElems = shuffledAnswers.map(answer => {
       return (
-        <button 
+        <div 
           key={nanoid()} 
           className="answer"
         >
           {htmlDecode(answer.text)}
-        </button>
+        </div>
       );
     });
     return answerElems;

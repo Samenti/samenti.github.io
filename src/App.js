@@ -47,6 +47,13 @@ export default function App() {
       />
     );
   });
+
+  const quizElems = new Array;
+  for (const item of itemElems) {
+    quizElems.push(item);
+    quizElems.push(<hr key={nanoid()}></hr>);
+  }
+  quizElems.push(<button key={nanoid()}>Check answers</button>);
   
   const splashScreen = (
     <div className="splash">
@@ -57,11 +64,13 @@ export default function App() {
   );
 
   return (
-    <div className="container">
+    <div className={
+      started ? "container quiz-container" : "container splash-container"
+    }>
       {
         started 
         ? 
-        itemElems
+        quizElems
         : 
         splashScreen
       }
