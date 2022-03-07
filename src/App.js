@@ -8,6 +8,9 @@ export default function App() {
   const apiUrl = 'https://opentdb.com/api.php?'
   const [started, setStarted] = React.useState(false);
   const [questionsData, setQuestionsData] = React.useState([]);
+  const [finished, setFinished] = React.useState(false);
+  const [score, setScore] = React.useState(0);
+  const [gameRestarts, setGameRestarts] = React.useState(0);
 
   console.log(questionsData);
 
@@ -99,11 +102,28 @@ export default function App() {
     });
   }
 
+  function checkAnswers() {
+    setFinished(true);
+    for (const item of questionsData) {
+      for (const answer of item.answers) {
+        if (answer.isCorrect && answer.isSelected) {
+          setScore(prevScore => prevScore + 1);
+        }
+      }
+    }
+  }
+
+  function restartGame() {
+    setGameRestarts(prevValue => prevValue + 1);
+    setFinished(false);
+    setScore(0);
+  }
+
   React.useEffect(() => {
     if (started) {
       getQuestionsData(category, difficulty);
     }
-  }, [started]);
+  }, [started, gameRestarts]);
 
   const itemElems = questionsData.map(questionData => {
     return (
@@ -113,6 +133,7 @@ export default function App() {
         question={questionData.question}
         answers={questionData.answers}
         handleClick={selectAnswer}
+        finished={finished}
       />
     );
   });
@@ -122,7 +143,32 @@ export default function App() {
     quizElems.push(item);
     quizElems.push(<hr key={nanoid()}></hr>);
   }
-  quizElems.push(<button key={nanoid()}>Check answers</button>);
+  if (!finished) {
+    quizElems.push(
+      <button
+        className="check-button"
+        key={nanoid()}
+        onClick={checkAnswers}
+      >
+        Check answers
+      </button>
+    );
+  } else {
+    quizElems.push(
+      <div key={nanoid()} className="bottombar">
+        <h3>
+          {`You scored ${score}/${questionsData.length} correct answers`}
+        </h3>
+        <button 
+          className="restart-button"
+          onClick={restartGame}
+        >
+          Play again
+        </button>
+      </div>
+    );
+  }
+  
   
   const splashScreen = (
     <div className="splash">

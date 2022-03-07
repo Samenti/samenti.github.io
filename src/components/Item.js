@@ -8,13 +8,28 @@ export default function Item(props) {
     var doc = new DOMParser().parseFromString(input, "text/html");
     return doc.documentElement.textContent;
   }
-  
+
   const answerElems = props.answers.map(answer => {
+    let classes = 'answer noselect ';
+    if (!props.finished) {
+      classes += answer.isSelected ? 'selected' : '';
+    } else if (answer.isCorrect) {
+      classes += 'correct';
+    } else {
+      classes += answer.isSelected ? 'incorrect' : 'unchosen';
+    }
+    const clickFunction = (
+      props.finished
+      ?
+      () => {}
+      :
+      () => {props.handleClick(props.id, answer.id)}
+    );
     return (
       <div 
         key={answer.id} 
-        className={answer.isSelected ? "answer selected" : "answer"}
-        onClick={() => {props.handleClick(props.id, answer.id)}}
+        className={classes}
+        onClick={clickFunction}
       >
         {htmlDecode(answer.text)}
       </div>

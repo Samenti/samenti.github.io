@@ -92,14 +92,37 @@ body {
   button {
     @include button;
     margin-top: 10px;
-    width: 180px;
-    height: 50px;
-    border-radius: 180px * $br-ratio;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: $option-size;
     line-height: 120% $option-size;
+  }
+
+  .check-button {
+    width: 180px;
+    height: 50px;
+    border-radius: 180px * $br-ratio;
     align-self: center;
+  }
+
+  .bottombar {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 30px;
+
+    h3 {
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 120% 18px;
+      text-align: center;
+    }
+
+    .restart-button {
+      width: 150px;
+      height: 45px;
+      border-radius: 150px * $br-ratio;
+    }
   }
 }
 
@@ -130,6 +153,21 @@ body {
     .selected {
       border: 1px solid $selected-color;
       background-color: $selected-color;
+    }
+
+    .unchosen {
+      opacity: 50%;
+    }
+
+    .correct {
+      border: 1px solid $correct-color;
+      background-color: $correct-color;
+    }
+
+    .incorrect {
+      opacity: 50%;
+      border: 1px solid $incorrect-color;
+      background-color: $incorrect-color;
     }
   }
 }
