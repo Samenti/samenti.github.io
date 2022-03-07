@@ -11,6 +11,25 @@ export default function App() {
 
   console.log(questionsData);
 
+  /* Helper function; Fisher-Yates (aka Knuth) Shuffle algorithm */
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
   function startQuiz() {
     setStarted(true);
   }
@@ -25,10 +44,35 @@ export default function App() {
         }
         return res.json();
       }
-    ).then(data => setQuestionsData(data.results)
+    ).then(data => setQuestionsData(extractQuiz(data.results))
     ).catch(error => {
       console.error('Fetch request error:', error);
     });
+  }
+
+  function extractQuiz(dbdata) {
+    const quiz = new Array();
+    for (const dataObj of dbdata) {
+      const answersArray = new Array();
+      for (const ans of dataObj.incorrect_answers) {
+        answersArray.push({
+          text: ans,
+          isCorrect: false,
+          isSelected: false
+        });
+      }
+      answersArray.push({
+        text: dataObj.correct_answer,
+        isCorrect: true,
+        isSelected: false
+      });
+      let quizItem = {
+        question: dataObj.question,
+        answers: shuffle(answersArray)
+      }
+      quiz.push(quizItem);
+    }
+    return quiz;
   }
 
   React.useEffect(() => {
@@ -42,8 +86,7 @@ export default function App() {
       <Item 
         key={nanoid()}
         question={questionData.question}
-        correct={questionData.correct_answer}
-        incorrects={questionData.incorrect_answers}
+        answers={questionData.answers}
       />
     );
   });
