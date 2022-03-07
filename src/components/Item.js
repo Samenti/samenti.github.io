@@ -12,8 +12,9 @@ export default function Item(props) {
   const answerElems = props.answers.map(answer => {
     return (
       <div 
-        key={nanoid()} 
+        key={answer.id} 
         className={answer.isSelected ? "answer selected" : "answer"}
+        onClick={() => {props.handleClick(props.id, answer.id)}}
       >
         {htmlDecode(answer.text)}
       </div>

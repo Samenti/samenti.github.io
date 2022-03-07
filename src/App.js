@@ -56,23 +56,47 @@ export default function App() {
       const answersArray = new Array();
       for (const ans of dataObj.incorrect_answers) {
         answersArray.push({
+          id: nanoid(),
           text: ans,
           isCorrect: false,
           isSelected: false
         });
       }
       answersArray.push({
+        id: nanoid(),
         text: dataObj.correct_answer,
         isCorrect: true,
         isSelected: false
       });
-      let quizItem = {
+      const quizItem = {
+        id: nanoid(),
         question: dataObj.question,
         answers: shuffle(answersArray)
       }
       quiz.push(quizItem);
     }
     return quiz;
+  }
+
+  function selectAnswer(questionId, answerId) {
+    setQuestionsData((prevItems) => {
+      const newItems = new Array();
+      for (const item of prevItems) {
+        if (item.id != questionId) {
+          newItems.push(item);
+        } else if (item.id === questionId) {
+          const newAnswers = new Array();
+          for (const answer of item.answers) {
+            newAnswers.push({
+              ...answer,
+              isSelected: answer.id === answerId ? true : false
+            });
+          }
+          newItems.push({...item, answers: newAnswers});
+        }
+      }
+      return newItems;
+    });
   }
 
   React.useEffect(() => {
@@ -84,14 +108,16 @@ export default function App() {
   const itemElems = questionsData.map(questionData => {
     return (
       <Item 
-        key={nanoid()}
+        key={questionData.id}
+        id={questionData.id}
         question={questionData.question}
         answers={questionData.answers}
+        handleClick={selectAnswer}
       />
     );
   });
 
-  const quizElems = new Array;
+  const quizElems = new Array();
   for (const item of itemElems) {
     quizElems.push(item);
     quizElems.push(<hr key={nanoid()}></hr>);
