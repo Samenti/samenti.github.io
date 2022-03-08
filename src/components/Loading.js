@@ -9,13 +9,29 @@ export default function Loading() {
   const hrOffset = 95;
   const rectangles = new Array();
   for (let i=0; i<5; i++) {
-    rectangles.push(<rect key={nanoid()} x="0" y={(i * itemOffset).toString()} rx="5" ry="5" width="550" height="28" />);
+    rectangles.push(<rect 
+      key={nanoid()}
+      x="0" y={(i * itemOffset).toString()}
+      rx="5" ry="5" width="550" height="28"
+    />);
     for (let j=0; j<4; j++) {
-      rectangles.push(<rect key={nanoid()} x={(j * columnOffset).toString()} y={(i * itemOffset + rowOffset).toString()} rx="10" ry="10" width="100" height="30" />);
+      rectangles.push(<rect 
+        key={nanoid()}
+        x={(j * columnOffset).toString()}
+        y={(i * itemOffset + rowOffset).toString()}
+        rx="10" ry="10" width="100" height="30"
+      />);
     }
-    rectangles.push(<rect key={nanoid()} x="0" y={(i * itemOffset + hrOffset).toString()} rx="0" ry="0" width="580" height="1" />);
+    rectangles.push(<rect
+      key={nanoid()}
+      x="0" y={(i * itemOffset + hrOffset).toString()}
+      rx="0" ry="0" width="580" height="1"
+    />);
   }
-  rectangles.push(<rect key={nanoid()} x="210" y="600" rx="16" ry="16" width="180" height="50" />);
+  rectangles.push(<rect
+    key={nanoid()}
+    x="210" y="600" rx="16" ry="16" width="180" height="50"  
+  />);
   
   return (
     <div className="container quiz-container">
