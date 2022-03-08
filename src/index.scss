@@ -140,6 +140,8 @@ body {
     gap: 18px;
 
     .answer {
+      display: flex;
+      align-items: center;
       border: 1px solid $button-color;
       border-radius: 12px;
       padding: 5px 8px;
@@ -148,6 +150,10 @@ body {
       line-height: 120% $option-size;
       text-align: center;
       cursor: pointer;
+
+      p {
+        margin: 0;
+      }
     }
 
     .selected {

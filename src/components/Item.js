@@ -1,5 +1,4 @@
 import React from 'react';
-import {nanoid} from 'nanoid';
 
 export default function Item(props) {
 
@@ -31,7 +30,7 @@ export default function Item(props) {
         className={classes}
         onClick={clickFunction}
       >
-        {htmlDecode(answer.text)}
+        <p>{htmlDecode(answer.text)}</p>
       </div>
     );
   });

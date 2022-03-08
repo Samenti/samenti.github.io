@@ -1,18 +1,27 @@
 import React from 'react';
 import Item from './components/Item';
 import {nanoid} from 'nanoid';
+import Loading from './components/Loading';
 
 export default function App() {
-  const category = 9;
-  const difficulty = 'medium';
-  const apiUrl = 'https://opentdb.com/api.php?'
+  const amount = 5;
+  const category = null;
+  const difficulty = null;
+  const type = null;
+  const apiUrl =  `https://opentdb.com/api.php?amount=${amount}`.concat(
+    category ? `&category=${category}` : ``
+  ).concat(
+    difficulty ? `&difficulty=${difficulty}` : ``
+  ).concat(
+    type ? `&type=${type}` : ``
+  );
   const [started, setStarted] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
   const [questionsData, setQuestionsData] = React.useState([]);
   const [finished, setFinished] = React.useState(false);
   const [score, setScore] = React.useState(0);
   const [gameRestarts, setGameRestarts] = React.useState(0);
 
-  console.log(questionsData);
 
   /* Helper function; Fisher-Yates (aka Knuth) Shuffle algorithm */
   function shuffle(array) {
@@ -37,11 +46,9 @@ export default function App() {
     setStarted(true);
   }
 
-  function getQuestionsData(cat, diff) {
-    fetch(
-      `${apiUrl}amount=5&category=${cat}`
-      + `&difficulty=${diff}&type=multiple`
-    ).then(res => {
+  function getQuestionsData() {
+    fetch(apiUrl).then(setLoading(true)).then(
+      res => {
         if (!res.ok) {
           throw new Error('Response not OK');
         }
@@ -78,6 +85,7 @@ export default function App() {
       }
       quiz.push(quizItem);
     }
+    setLoading(false);
     return quiz;
   }
 
@@ -121,7 +129,7 @@ export default function App() {
 
   React.useEffect(() => {
     if (started) {
-      getQuestionsData(category, difficulty);
+      getQuestionsData();
     }
   }, [started, gameRestarts]);
 
@@ -179,6 +187,10 @@ export default function App() {
   );
 
   return (
+    loading
+    ?
+    <Loading />
+    :
     <div className={
       started ? "container quiz-container" : "container splash-container"
     }>
