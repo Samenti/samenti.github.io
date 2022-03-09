@@ -9,8 +9,10 @@ $incorrect-color: #F8BCBC;
 $correct-color: #94D7A2;
 $title-size: 46px;
 $subtitle-size: 24px;
+$button-text-size: 18px;
 $option-size: 14px;
 $br-ratio: 0.07;
+$mobile-ratio: 0.8;
 
 @mixin flexbox {
   display: flex;
@@ -37,12 +39,12 @@ body {
 }
 
 .container {
-  margin: 50px auto;
+  margin: 0 auto;
   background-color: $app-color;
   background-image: url(./images/baby-blob.svg), url(./images/lemony-blob.svg);
   background-position: -300px 700px, 600px -200px;
   background-repeat: no-repeat, no-repeat;
-  width: 800px;
+  max-width: 800px;
   min-height: 800px;
 }
 
@@ -57,14 +59,15 @@ body {
     margin: 0;
     font-family: 'Karla', sans-serif;
     font-size: $title-size;
-    line-height: 120% $title-size;
+    line-height: 1.2 * $title-size;
   }
 
   p {
     margin-top: 10px;
     margin-bottom: 0;
     font-size: $subtitle-size;
-    line-height: 120% $subtitle-size;
+    line-height: 1.2 * $subtitle-size;
+    text-align: center;
   }
 
   button {
@@ -74,7 +77,7 @@ body {
     height: 76px;
     border-radius: 280px * $br-ratio;
     font-size: $subtitle-size;
-    line-height: 120% $subtitle-size;
+    line-height: 1.2 * $subtitle-size;
   }
 }
 
@@ -94,14 +97,14 @@ body {
     margin-top: 10px;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: $option-size;
-    line-height: 120% $option-size;
+    font-size: $button-text-size;
+    line-height: 1.2 * $button-text-size;
   }
 
   .check-button {
-    width: 180px;
-    height: 50px;
-    border-radius: 180px * $br-ratio;
+    width: 200px;
+    height: 60px;
+    border-radius: 200px * $br-ratio;
     align-self: center;
   }
 
@@ -109,19 +112,24 @@ body {
     display: flex;
     justify-content: center;
     align-items: baseline;
+    flex-wrap: wrap;
     gap: 30px;
 
     h3 {
+      margin: 0;
       font-weight: 700;
-      font-size: 18px;
-      line-height: 120% 18px;
+      font-size: $button-text-size;
+      line-height: 1.2 * $button-text-size;
       text-align: center;
     }
 
     .restart-button {
-      width: 150px;
-      height: 45px;
-      border-radius: 150px * $br-ratio;
+      width: 180px;
+      height: 60px;
+      border-radius: 180px * $br-ratio;
+      font-weight: 600;
+      font-size: $button-text-size;
+      line-height: 1.2 * $button-text-size;
     }
   }
 }
@@ -131,28 +139,28 @@ body {
     margin: 0;
     font-family: 'Karla', sans-serif;
     font-size: $subtitle-size;
-    line-height: 120% $subtitle-size;
+    line-height: 1.2 * $subtitle-size;
   }
 
   .answers {
     margin-top: 18px;
     display: flex;
+    flex-wrap: wrap;
     gap: 18px;
 
     .answer {
-      display: flex;
-      align-items: center;
+      min-width: 40px;
       border: 1px solid $button-color;
       border-radius: 12px;
       padding: 5px 8px;
       font-weight: 500;
       font-size: $option-size;
-      line-height: 120% $option-size;
-      text-align: center;
+      line-height: 1.2 * $option-size;
       cursor: pointer;
 
       p {
         margin: 0;
+        text-align: center;
       }
     }
 
@@ -186,4 +194,73 @@ body {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+// @media screen and (min-width: 768px) and (max-width: 992px) {
+
+// }
+
+@media screen and (min-width: 576px) and (max-width: 767px) {
+  .container {
+    width: 100%;
+    min-height: 600px;
+  }
+
+  .splash-container {
+    background-position: -220px 500px, 400px -200px;
+  }
+
+  .quiz-container {
+    padding: 25px 20px 40px;
+    background-position: -320px 700px, 400px -250px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .container {
+    width: 100%;
+    min-height: 600px;
+  }
+
+  .splash-container {
+    background-position: -220px 500px, 300px -200px;
+  }
+
+  .splash {
+
+    button {
+      width: $mobile-ratio * 280px;
+      height: $mobile-ratio * 76px;
+      border-radius: $mobile-ratio * 280px * $br-ratio;
+      font-size: $mobile-ratio * $subtitle-size;
+      line-height: 1.2 * $mobile-ratio * $subtitle-size;
+    }
+  }
+
+  .quiz-container {
+    padding: 25px 20px 40px;
+    background-position: -320px 640px, 250px -250px;
+
+    .bottombar {
+      gap: 20px;
+    }
+  }
+
+  .item {
+    
+    h2 {
+      font-size: $mobile-ratio * $subtitle-size;
+      line-height: 1.2 * $mobile-ratio * $subtitle-size;
+    }
+
+    .answers {
+      gap: 10px;
+      flex-wrap: wrap;
+
+      .answer {
+        min-width: 30px;
+        border-radius: $mobile-ratio * 12px;
+      }
+    }
+  }
 }
